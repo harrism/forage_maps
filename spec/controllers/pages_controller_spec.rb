@@ -11,8 +11,7 @@ describe PagesController do
 
     it "should have the right title" do
       get 'home'
-      response.should have_selector("title",
-                        :content => "ForageMaps | Home")
+      response.should have_selector("title", :content => "ForageMaps | Home")
     end
   end
 
@@ -24,8 +23,7 @@ describe PagesController do
 
     it "should have the right title" do
       get 'contact'
-      response.should have_selector("title",
-                        :content => "ForageMaps | Contact")
+      response.should have_selector("title", :content => "ForageMaps | Contact")
     end
   end
 
@@ -37,8 +35,19 @@ describe PagesController do
 
     it "should have the right title" do
       get 'about'
-      response.should have_selector("title",
-                        :content => "ForageMaps | About")
+      response.should have_selector("title", :content => "ForageMaps | About")
+    end
+  end
+  
+  describe "GET 'help'" do
+    it "should be successful" do
+      get 'help'
+      response.should be_success
+    end
+
+    it "should have the right title" do
+      get 'help'
+      response.should have_selector("title", :content => "ForageMaps | Help")
     end
   end
 end
