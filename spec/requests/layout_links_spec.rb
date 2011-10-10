@@ -56,6 +56,25 @@ describe "LayoutLinks" do
       integration_sign_in(@user)
     end
     
+    describe "as admin" do
+      
+      it "should have delete links on the users index page" do
+        @user.toggle!(:admin)
+        visit users_path
+        response.should have_selector("a", :href => user_path(:id => 1),
+                                           :content => "delete")
+      end
+    end
+    
+    describe "as non-admin" do
+      
+      it "should not have delete links on the users index page" do
+        visit users_path
+        response.should_not have_selector("a", :href => user_path(:id => 1),
+                                               :content => "delete")
+      end
+    end
+    
     it "should have a signout link" do
       visit root_path
       response.should have_selector("a", :href => signout_path,

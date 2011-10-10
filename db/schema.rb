@@ -10,7 +10,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111004110128) do
+ActiveRecord::Schema.define(:version => 20111005094304) do
+
+  create_table "tuckers", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.decimal  "lat",         :precision => 15, :scale => 11, :default => 0.0
+    t.decimal  "lng",         :precision => 15, :scale => 11, :default => 0.0
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tuckers", ["user_id", "created_at"], :name => "index_tuckers_on_user_id_and_created_at"
 
   create_table "users", :force => true do |t|
     t.string   "name"

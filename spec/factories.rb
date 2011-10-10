@@ -9,3 +9,11 @@ end
 Factory.sequence :email do |n|
   "person-#{n}@example.com"
 end
+
+Factory.define :tucker do |tucker|
+  tucker.title "A Tucker"
+  tucker.description "Growing somewhere."
+  tucker.lat 40.0
+  tucker.lng 0.0
+  tucker.association :user
+end

@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
-  before_filter :authenticate, :only => [ :index, :edit, :update, :destroy ]
-  before_filter :correct_user, :only => [ :edit, :update ]
-  before_filter :admin_user,   :only => :destroy
+  before_filter :authenticate,  :only => [ :index, :edit, :update, :destroy ]
+  before_filter :correct_user,  :only => [ :edit, :update ]
+  before_filter :admin_user,    :only => :destroy
+  before_filter :not_signed_in, :only => [ :new, :create ]
   
   def index
     @title = "All Users"
@@ -10,6 +11,7 @@ class UsersController < ApplicationController
   
   def show
     @user  = User.find(params[:id])
+    @tuckers = @user.tuckers.paginate(:page => params[:page])
     @title = @user.name
   end
 
@@ -49,16 +51,17 @@ class UsersController < ApplicationController
   end
   
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "User destroyed."
+    user = User.find(params[:id])
+    if user == current_user
+      flash[:failure] = "Admin cannot destroy self."
+    else
+      user.destroy
+      flash[:success] = "User destroyed."
+    end
     redirect_to users_path
   end
   
   private
-  
-    def authenticate
-      deny_access unless signed_in?
-    end
     
     def correct_user
       @user = User.find(params[:id])
@@ -67,5 +70,9 @@ class UsersController < ApplicationController
     
     def admin_user
       redirect_to(root_path) unless current_user.admin?
+    end
+    
+    def not_signed_in
+      redirect_to(root_path) unless not signed_in?
     end
 end

@@ -150,4 +150,39 @@ describe User do
       @user.should be_admin
     end
   end
+  
+  describe "tucker associations" do
+    
+    before(:each) do
+      @user = User.create(@attr)
+      @t1 = Factory(:tucker, :user => @user, :created_at => 1.day.ago)
+      @t2 = Factory(:tucker, :user => @user, :created_at => 1.hour.ago)
+    end
+    
+    it "should have a tuckers attribute" do
+      @user.should respond_to(:tuckers)
+    end
+    
+    it "should have the right tuckers in the right order" do
+      @user.tuckers.should == [@t2, @t1]
+    end
+    
+    describe "status feed" do
+      
+      it "should have a feed" do
+        @user.should respond_to(:feed)
+      end
+      
+      it "should include the user's tuckers" do
+        @user.feed.include?(@t1).should be_true
+        @user.feed.include?(@t2).should be_true
+      end
+      
+      it "should not include a different user's tuckers" do
+        t3 = Factory(:tucker,
+                     :user => Factory(:user, :email => Factory.next(:email)))
+        @user.feed.include?(t3).should be_false
+      end
+    end
+  end
 end

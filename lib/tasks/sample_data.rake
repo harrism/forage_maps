@@ -17,5 +17,14 @@ namespace :db do
                   :password => password,
                   :password_confirmation => password)
     end
+    
+    50.times do
+      User.all(:limit => 6).each do |user|
+        user.tuckers.create(:title => Faker::Lorem.words(2).join(" "),
+                            :description => Faker::Lorem.sentence(10),
+                            :lat => rand * 180.0 - 90.0,
+                            :lng => rand * 360.0 - 180.0)
+      end
+    end
   end
 end

@@ -137,6 +137,81 @@ td.sidebar {
   margin-bottom: -15px;
 }
 
+h1.tucker {
+  margin-bottom: 0.3em;
+}
+
+table.tuckers {
+  margin-top: 1em;
+}
+
+table.tuckers tr {
+  height: 70px;
+}
+
+table.tuckers tr td.gravatar {
+  border-top: 1px solid #ccc;
+  vertical-align: top;
+  width: 50px;
+}
+
+table.tuckers tr td.tucker {
+  border-top: 1px solid #ccc;
+  vertical-align: top;
+  padding-top: 10px;
+}
+
+table.tuckers tr td.tucker span.user {
+  font-weight: bold;
+}
+
+table.tuckers tr td.tucker span.title {
+  font-weight: bold;
+}
+
+table.tuckers tr td.tucker span.description {
+  display: block;
+}
+
+
+table.tuckers tr td.tucker span.latlng {
+  display: block;
+  font-size: 85%;
+  color: #666;
+}
+
+
+table.tuckers tr td.tucker span.timestamp {
+  display: block;
+  font-size: 85%;
+  color: #666;
+}
+
+div.user_info img {
+  padding-right: 0.1em;
+}
+
+div.user_info a {
+  text-decoration: none;
+}
+
+div.user_info span.user_name {
+  position: absolute;
+}
+
+div.user_info span.tuckers {
+  font-size: 80%;
+}
+
+form.new_tucker {
+  margin-bottom: 2em;
+}
+
+form.new_tucker textarea {
+  height: 4em;
+  margin-bottom: 0;
+}
+
 ul.users {
   margin-top: 1em;
 }

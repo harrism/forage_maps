@@ -1,0 +1,18 @@
+<%= form_for @tucker do |f| %>
+  <%= render 'shared/error_messages', :object => f.object %>
+  <div class="field">
+    <%= f.text_area :title %>
+  </div>
+  <div class="field">
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.number_field :lat, :min => -90.0, :max => 90.0, :step => 0.0001  %>
+  </div>
+  <div class="field">
+    <%= f.number_field :lng, :min => -180.0, :max => 180.0, :step => 0.0001 %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Submit" %>
+  </div>
+<% end %>
