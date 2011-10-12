@@ -93,6 +93,19 @@ describe UsersController do
       response.should have_selector("span.title", :content => t1.title)
       response.should have_selector("span.title", :content => t2.title)
     end
+    
+    it "should paginate the users tuckers" do
+      50.times do |t|
+        Factory(:tucker, :user => @user, :title => "Tucker #{t}")
+      end
+      get :show, :id => @user
+      response.should have_selector("div.pagination")
+      response.should have_selector("span.disabled", :content => "Previous")
+      response.should have_selector("a", :href => "/users/1?page=2",
+                                         :content => "2")
+      response.should have_selector("a", :href => "/users/1?page=2",
+                                         :content => "Next")
+    end
   end
 
   describe "GET :new" do
