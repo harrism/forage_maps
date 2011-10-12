@@ -4,10 +4,10 @@
   </div>
   <div class="tucker">
     <span class="user">
-      <%= link_to feed_item.user.name, feed_item.user %>
+      <%= link_to wrap(feed_item.user.name), feed_item.user %>
     </span>
-    <span class="title"><%= feed_item.title %></span>
-    <span class="description"><%= feed_item.description %></span>
+    <span class="title"><%= wrap(feed_item.title) %></span>
+    <span class="description"><%= wrap(feed_item.description) %></span>
     <span class="latlng">
       Coordinates: (<%= feed_item.lat %>, <%= feed_item.lng %>)
     </span>
