@@ -100,5 +100,20 @@ describe "LayoutLinks" do
       response.should have_selector("a", :href => user_path(@user),
                                          :content => "2 tuckers")
     end
+    
+    it "should have delete links next to the user's posts" do
+      t1 = Factory(:tucker, :user => @user, :title => "Foo Bar")
+      visit root_path
+      response.should have_selector("a", :href => tucker_path(t1),
+                                         :content => "delete")
+    end
+    
+    it "should not have delete links next to other users' posts" do
+      other_user = Factory(:user, :email => "another@foragemaps.com")
+      t1 = Factory(:tucker, :user => other_user, :title => "Foo Bar")
+      visit root_path
+      response.should_not have_selector("a", :href => tucker_path(t1),
+                                             :content => "delete")
+    end
   end
 end
