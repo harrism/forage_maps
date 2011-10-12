@@ -86,5 +86,19 @@ describe "LayoutLinks" do
       response.should have_selector("a", :href => user_path(@user),
                                          :content => "Profile")
     end
+    
+    it "should have a user sidebar with user info" do
+      t1 = Factory(:tucker, :user => @user, :title => "Foo Bar")
+      visit root_path
+      response.should have_selector("td.sidebar div.user_info")
+      response.should have_selector("a", :href => user_path(@user),
+                                         :content => @user.name)
+      response.should have_selector("a", :href => user_path(@user),
+                                         :content => "1 tucker")
+      t2 = Factory(:tucker, :user => @user, :title => "Baz quux")
+      visit root_path
+      response.should have_selector("a", :href => user_path(@user),
+                                         :content => "2 tuckers")
+    end
   end
 end

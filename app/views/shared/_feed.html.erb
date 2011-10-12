@@ -1,6 +1,6 @@
 <% unless @feed_items.empty? %>
-  <table class="tuckers" summary="User tuckers">
+  <ul class="tuckers">
     <%= render :partial => 'shared/feed_item', :collection => @feed_items %> 
-  </table>
+  </ul>
   <%= will_paginate @feed_items %>
 <% end %>

@@ -7,9 +7,9 @@
       </h1>
       
       <% unless @user.tuckers.empty? %>
-        <table class="tuckers" summary="User tuckers">
+        <ul class="tuckers">
           <%= render @tuckers %> 
-        </table>
+        </ul>
         <%= will_paginate @tuckers %>
       <% end%>
     </td>

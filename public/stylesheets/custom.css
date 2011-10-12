@@ -141,50 +141,64 @@ h1.tucker {
   margin-bottom: 0.3em;
 }
 
-table.tuckers {
+ul.tuckers {
   margin-top: 1em;
+  list-style-type: none;
+  padding-left: 0px;
+  margin-right: 0px;
 }
 
-table.tuckers tr {
-  height: 70px;
-}
-
-table.tuckers tr td.gravatar {
+ul.tuckers li {
   border-top: 1px solid #ccc;
-  vertical-align: top;
-  width: 50px;
+  clear: both;
 }
 
-table.tuckers tr td.tucker {
-  border-top: 1px solid #ccc;
+ul.tuckers li .gravatar {
   vertical-align: top;
   padding-top: 10px;
+  width: 50px;
+  float: left;
 }
 
-table.tuckers tr td.tucker span.user {
+ul.tuckers li .tucker {
+  vertical-align: top;
+  padding-top: 10px;
+  padding-left: 10px;
+  width: 320px;
+  float: left;
+}
+
+ul.tuckers li .tucker span.user {
   font-weight: bold;
 }
 
-table.tuckers tr td.tucker span.title {
+ul.tuckers li .tucker span.title {
   font-weight: bold;
 }
 
-table.tuckers tr td.tucker span.description {
+ul.tuckers li .tucker span.description {
   display: block;
 }
 
-
-table.tuckers tr td.tucker span.latlng {
+ul.tuckers li .tucker span.latlng {
   display: block;
   font-size: 85%;
   color: #666;
 }
 
-
-table.tuckers tr td.tucker span.timestamp {
+ul.tuckers li .tucker span.timestamp {
   display: block;
   font-size: 85%;
   color: #666;
+}
+
+ul.tuckers li .delete {
+  vertical-align: top;
+  padding-top: 10px;
+  padding-left: 10px;
+  display: block;
+  width: 45px;
+  float: left;
 }
 
 div.user_info img {

@@ -1,5 +1,5 @@
-<tr>  
-  <td class="tucker">
+<li>  
+  <div class="tucker">
     <span class="title"><%= tucker.title %></span>
     <span class="description"><%= tucker.description %></span>
     <span class="latlng">
@@ -8,12 +8,12 @@
     <span class="timestamp">
       Posted <%= time_ago_in_words(tucker.created_at) %> ago.
     </span>
-  </td>
+  </div>
   <% if current_user?(tucker.user) %>
-  <td class="delete">
+  <div class="delete">
     <%= link_to "delete", tucker, :method => :delete, 
                                      :confirm => "Are you sure?", 
                                      :title => tucker.title %>
-  </td>
+  </div>
   <% end %>
-</tr>
+</li>
