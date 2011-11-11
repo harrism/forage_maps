@@ -72,4 +72,34 @@ describe Tucker do
       @user.tuckers.build(:title => "Foo", :lng =>   35.0).should be_valid
     end
   end
+  
+  describe "from_users_followed_by" do
+    
+    before(:each) do
+      @other_user = Factory(:user, :email => Factory.next(:email))
+      @third_user = Factory(:user, :email => Factory.next(:email))
+      
+      @user_tucker = @user.tuckers.create!(:title => "Foo")
+      @other_tucker = @other_user.tuckers.create!(:title => "bar")
+      @third_tucker = @third_user.tuckers.create!(:title => "baz")
+      
+      @user.follow!(@other_user)
+    end
+    
+    it "should have a from_users_followed_by class method" do
+      Tucker.should respond_to(:from_users_followed_by)
+    end
+    
+    it "should include the followed users' tuckers" do
+      Tucker.from_users_followed_by(@user).should include(@other_tucker)
+    end
+    
+    it "should include the user's own tuckers" do
+      Tucker.from_users_followed_by(@user).should include(@user_tucker)
+    end
+    
+    it "should not include an unfollowed user's tuckers" do
+      Tucker.from_users_followed_by(@user).should_not include(@third_tucker)
+    end
+  end
 end
