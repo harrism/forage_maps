@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111012112513) do
+ActiveRecord::Schema.define(:version => 20111117113742) do
 
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"
@@ -40,9 +41,9 @@ ActiveRecord::Schema.define(:version => 20111012112513) do
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "encrypted_password"
+    t.string   "password_digest"
     t.string   "salt"
-    t.boolean  "admin",              :default => false
+    t.boolean  "admin",           :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

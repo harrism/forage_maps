@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
   
   # Return true if the user's password matches the submitted password
   def has_password?(submitted_password)
-    encrypted_password == encrypt(submitted_password)
+    password_digest == encrypt(submitted_password)
   end
   
   def self.authenticate(email, submitted_password)
@@ -73,7 +73,7 @@ class User < ActiveRecord::Base
   
     def encrypt_password
       self.salt = make_salt unless has_password?(password)
-      self.encrypted_password = encrypt(password)
+      self.password_digest = encrypt(password)
     end
     
     def encrypt(string)

@@ -1,5 +1,5 @@
 class CreateTuckers < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :tuckers do |t|
       t.string  :title
       t.text    :description
@@ -10,9 +10,5 @@ class CreateTuckers < ActiveRecord::Migration
       t.timestamps
     end
     add_index :tuckers, [:user_id, :created_at]
-  end
-
-  def self.down
-    drop_table :tuckers
   end
 end
