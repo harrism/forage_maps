@@ -61,7 +61,7 @@ describe "LayoutLinks" do
       it "should have delete links on the users index page" do
         @user.toggle!(:admin)
         visit users_path
-        response.should have_selector("a", :href => user_path(:id => 1),
+        response.should have_selector("a", :href => user_path(:id => @user),
                                            :content => "delete")
       end
     end
@@ -70,7 +70,7 @@ describe "LayoutLinks" do
       
       it "should not have delete links on the users index page" do
         visit users_path
-        response.should_not have_selector("a", :href => user_path(:id => 1),
+        response.should_not have_selector("a", :href => user_path(:id => @user),
                                                :content => "delete")
       end
     end

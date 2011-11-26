@@ -8,8 +8,16 @@ gem 'will_paginate', '3.0.2'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+# Postgresql instead of sqlite3
+gem 'pg'
+# gem 'sqlite3'
+
 gem 'bcrypt-ruby'
+
+# deployment on heroku
+gem 'heroku'
+# thin webserver
+gem 'thin'
 
 # Gems used only for assets and not required
 # in production environments by default.
