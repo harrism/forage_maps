@@ -16,6 +16,9 @@ ForageMaps::Application.configure do
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
+  
+  # precompile blueprint
+  config.assets.precompile += %w( blueprint/screen.css blueprint/print.css blueprint/ie.css )
 
   # Generate digests for assets URLs
   config.assets.digest = true
