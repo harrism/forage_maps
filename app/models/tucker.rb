@@ -1,17 +1,18 @@
 class Tucker < ActiveRecord::Base
-  attr_accessible :title, :description, :lat, :lng
+  attr_accessible :title, :description, :address, :latitude, :longitude
   
   belongs_to :user
   
   validates :title, :presence => true, :length => { :maximum => 50 }
   validates :description, :length => { :maximum => 500 }
+  validates :address, :length => { :maximum => 500 }
   validates :user_id, :presence => true
-  validates :lat, :lng, :presence => true
-  validates :lat, :numericality => {
+  validates :latitude, :longitude, :presence => true
+  validates :latitude, :numericality => {
     :greater_than_or_equal_to => -90.0,
-    :less_than_or_equal_to => 90.0
+    :less_than_or_equal_to => 90.0,
   }
-  validates :lng, :numericality => {
+  validates :longitude, :numericality => {
     :greater_than_or_equal_to => -180.0,
     :less_than_or_equal_to => 180.0
   }

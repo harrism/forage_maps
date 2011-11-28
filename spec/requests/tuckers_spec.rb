@@ -17,7 +17,7 @@ describe "Tuckers" do
       it "should not make a new tucker" do
         lambda do
           visit root_path
-          response.should have_selector("textarea#tucker_title")
+          response.should have_selector("input#tucker_title")
           fill_in :tucker_title, :with => ""
           click_button
           response.should render_template('pages/home')

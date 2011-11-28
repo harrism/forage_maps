@@ -11,9 +11,10 @@ Factory.sequence :email do |n|
 end
 
 Factory.define :tucker do |tucker|
-  tucker.title "A Tucker"
-  tucker.description "Growing somewhere."
-  tucker.lat 40.0
-  tucker.lng 0.0
+  tucker.title "Fig Tree"
+  tucker.description "Growing in the gardens point Botanical Gardens in Brisbane."
+  tucker.address "City Botanical Gardens, Brisbane, Queensland, Australia"
+  tucker.latitude 40.0
+  tucker.longitude 0.0
   tucker.association :user
 end

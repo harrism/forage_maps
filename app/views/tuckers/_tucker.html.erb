@@ -3,7 +3,7 @@
     <span class="title"><%= wrap(tucker.title) %></span>
     <span class="description"><%= wrap(tucker.description) %></span>
     <span class="latlng">
-      Coordinates: (<%= tucker.lat %>, <%= tucker.lng %>)
+      Coordinates: (<%= tucker.latitude %>, <%= tucker.longitude %>)
     </span>
     <span class="timestamp">
       Posted <%= time_ago_in_words(tucker.created_at) %> ago.
