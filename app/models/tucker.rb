@@ -1,5 +1,7 @@
 class Tucker < ActiveRecord::Base
   attr_accessible :title, :description, :address, :latitude, :longitude
+  geocoded_by :address
+  after_validation :geocode, :if => :address_changed?
   
   belongs_to :user
   
@@ -7,7 +9,7 @@ class Tucker < ActiveRecord::Base
   validates :description, :length => { :maximum => 500 }
   validates :address, :length => { :maximum => 500 }
   validates :user_id, :presence => true
-  validates :latitude, :longitude, :presence => true
+  #validates :latitude, :longitude, :presence => true
   validates :latitude, :numericality => {
     :greater_than_or_equal_to => -90.0,
     :less_than_or_equal_to => 90.0,

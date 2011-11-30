@@ -7,8 +7,7 @@ describe Tucker do
     @attr = {
       :title => "A Food",
       :description => "Growing somewhere.",
-      :lat => 40.0,
-      :lng => 0.0
+      :address => "Central Park, New York, NY"
     }
   end
   
@@ -40,6 +39,10 @@ describe Tucker do
     
     it "should require nonblank title" do
       @user.tuckers.build(:title => "    ").should_not be_valid
+    end
+    
+    it "should require nonblank address" do
+      @user.tuckers.build(:address => "    ").should_not be_valid
     end
         
     it "should reject long titles" do
@@ -104,6 +107,17 @@ describe Tucker do
     
     it "should not include an unfollowed user's tuckers" do
       Tucker.from_users_followed_by(@user).should_not include(@third_tucker)
+    end
+  end
+  
+  describe "geocoding" do
+  
+    it "should assign correct coordinates" do
+      lat = 40.7782667
+      lng = -73.9698797
+      @tucker = @user.tuckers.create!(@attr)
+      @tucker.latitude.should be_within(0.0001).of(lat)
+      @tucker.longitude.should be_within(0.0001).of(lng)
     end
   end
 end

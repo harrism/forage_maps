@@ -25,7 +25,7 @@ describe TuckersController do
     describe "failure" do
       
       before(:each) do
-        @attr = { :title => "", :description => "" }
+        @attr = { :title => "", :description => "", :address => "" }
       end
       
       it "should not create a tucker" do

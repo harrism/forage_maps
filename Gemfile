@@ -12,6 +12,9 @@ gem 'will_paginate', '3.0.2'
 gem 'pg'
 # gem 'sqlite3'
 
+# geolocation
+gem 'geocoder'
+
 gem 'bcrypt-ruby'
 
 # deployment on heroku

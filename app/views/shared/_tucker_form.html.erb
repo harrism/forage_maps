@@ -2,6 +2,8 @@
   <%= render 'shared/error_messages', :object => f.object %>
   <%= f.label "Title" %><div class="field"><%= f.text_field :title, :size => 76 %></div>
   <%= f.label "Description" %><div class="field"><%= f.text_area :description %></div>
+  <%= f.label "Address" %><div class="field"><%= f.text_field :address, :size => 76 %></div>
+  <!--
   <div class="field">
     <%= f.number_field :latitude, :min => -90.0, :max => 90.0, :step => 0.0001  %>
     <%= f.label "Latitude" %>
@@ -10,6 +12,7 @@
     <%= f.number_field :longitude, :min => -180.0, :max => 180.0, :step => 0.0001 %>
     <%= f.label "Longitude" %>
   </div>
+  -->
   <div class="actions">
     <%= f.submit "Submit" %>
   </div>
