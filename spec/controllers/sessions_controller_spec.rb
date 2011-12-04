@@ -5,17 +5,21 @@ describe SessionsController do
   
   describe "GET 'new'" do
   
-    it "should be successful" do
+    before(:each) do
       get :new
+    end
+  
+    it "should be successful" do
       response.should be_success
     end
     
     it "should have the right title" do
-      get :new
       response.should have_selector("title", :content => "Sign in")
     end
     
     it "should have a 'remember me' check box" do
+      response.should have_selector("label", :content => "Remember me")
+      response.should have_selector("input", :id => "remember_me")
     end
   end
   
@@ -65,7 +69,6 @@ describe SessionsController do
         post :create, :session => @attr
         cookies[:auth_token].should_not be_nil
       end
-      
     end
   end
   
