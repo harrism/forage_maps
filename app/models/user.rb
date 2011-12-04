@@ -12,7 +12,7 @@
 require 'digest'
 
 class User < ActiveRecord::Base
-  attr_accessor :password
+  has_secure_password
   attr_accessible :name, :email, :password, :password_confirmation
   
   has_many :tuckers
@@ -31,28 +31,18 @@ class User < ActiveRecord::Base
   validates :email, :presence   => true,
                     :format     => { :with => email_regex },
                     :uniqueness => { :case_sensitive => false }
-  validates :password, :presence     => true,
-                       :confirmation => true,
-                       :length       => { :within => 6..40 }
+  validates :password, :presence => true,
+                       :length   => { :within => 6..40 },
+                       :on       => :create
                        
-  before_save :encrypt_password
-  
-  # Return true if the user's password matches the submitted password
-  def has_password?(submitted_password)
-    password_digest == encrypt(submitted_password)
+  before_create { generate_token(:auth_token) }
+
+  def generate_token(column)
+    begin
+      self[column] = SecureRandom.urlsafe_base64
+    end while User.exists?(column => self[column])
   end
-  
-  def self.authenticate(email, submitted_password)
-    user = find_by_email(email)
-    return nil  if user.nil?
-    return user if user.has_password?(submitted_password)
-  end
-  
-  def self.authenticate_with_salt(id, cookie_salt)
-    user = find_by_id(id)
-    (user && user.salt == cookie_salt) ? user : nil
-  end
-  
+                       
   def following?(followed)
     relationships.find_by_followed_id(followed)
   end
@@ -68,24 +58,5 @@ class User < ActiveRecord::Base
   def feed
     Tucker.from_users_followed_by(self)
   end
-  
-  private
-  
-    def encrypt_password
-      self.salt = make_salt unless has_password?(password)
-      self.password_digest = encrypt(password)
-    end
-    
-    def encrypt(string)
-      secure_hash("#{salt}--#{string}")
-    end
-    
-    def make_salt
-      secure_hash("#{Time.now.utc}--#{password}")
-    end
-    
-    def secure_hash(string)
-      Digest::SHA2.hexdigest(string)
-    end
 end
 

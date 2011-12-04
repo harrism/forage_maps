@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111126055318) do
+ActiveRecord::Schema.define(:version => 20111202124532) do
 
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(:version => 20111126055318) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "password_digest"
-    t.string   "salt"
+    t.string   "auth_token"
     t.boolean  "admin",           :default => false
   end
 

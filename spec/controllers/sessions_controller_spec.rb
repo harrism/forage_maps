@@ -14,6 +14,9 @@ describe SessionsController do
       get :new
       response.should have_selector("title", :content => "Sign in")
     end
+    
+    it "should have a 'remember me' check box" do
+    end
   end
   
   describe "POST 'create'" do
@@ -57,6 +60,12 @@ describe SessionsController do
         post :create, :session => @attr
         response.should redirect_to(user_path(@user))
       end
+      
+      it "should store a valid auth_token cookie" do
+        post :create, :session => @attr
+        cookies[:auth_token].should_not be_nil
+      end
+      
     end
   end
   

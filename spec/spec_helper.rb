@@ -31,6 +31,8 @@ Spork.prefork do
     config.use_transactional_fixtures = true
     
     def test_sign_in(user)
+      # required to make sign-in work in rspec
+      request.cookies[:auth_token] = user.auth_token
       controller.sign_in(user)
     end
     
