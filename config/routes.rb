@@ -9,6 +9,7 @@ ForageMaps::Application.routes.draw do
   resources :sessions, :only => [:new, :create, :destroy]
   resources :tuckers,  :only => [:create, :destroy]
   resources :relationships, :only => [:create, :destroy]
+  resources :password_resets, :only => [:new, :create, :edit, :update]
   
   match '/signup',  :to => 'users#new'
   match '/signin',  :to => 'sessions#new'

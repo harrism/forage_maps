@@ -33,24 +33,24 @@ describe UsersController do
       
       it "should have the right title" do
         get :index
-        response.should have_selector("title", :content => "All Users")
+        response.body.should have_selector("title", :content => "All Users")
       end
       
       it "should have an element for each user" do
         get :index
         @users[0..2].each do |user|
-          response.should have_selector("li", :content => user.name)
+          response.body.should have_selector("li", :content => user.name)
         end
       end
       
       it "should paginate users" do
         get :index
-        response.should have_selector("div.pagination")
-        response.should have_selector("span.disabled", :content => "Previous")
-        response.should have_selector("a", :href => "/users?page=2",
-                                           :content => "2")
-        response.should have_selector("a", :href => "/users?page=2",
-                                           :content => "Next")
+        response.body.should have_selector("div.pagination")
+        response.body.should have_selector("span.disabled", :content => "Previous")
+        response.body.should have_selector("a", :href => "/users?page=2",
+                                                :content => "2")
+        response.body.should have_selector("a", :href => "/users?page=2",
+                                                :content => "Next")
       end
     end
   end
@@ -73,25 +73,25 @@ describe UsersController do
     
     it "should have the right title" do
       get :show, :id => @user
-      response.should have_selector("title", :content => @user.name)
+      response.body.should have_selector("title", :content => @user.name)
     end
     
     it "should include the users's name" do
       get :show, :id => @user
-      response.should have_selector("h1", :content => @user.name)
+      response.body.should have_selector("h1", :content => @user.name)
     end
     
     it "should have a profile image" do
       get :show, :id => @user
-      response.should have_selector("h1>img", :class => "gravatar")
+      response.body.should have_selector("h1>img", :class => "gravatar")
     end
     
     it "should show the users tuckers" do
       t1 = Factory(:tucker, :user => @user, :title => "Foo Bar")
       t2 = Factory(:tucker, :user => @user, :title => "Baz quux")
       get :show, :id => @user
-      response.should have_selector("span.title", :content => t1.title)
-      response.should have_selector("span.title", :content => t2.title)
+      response.body.should have_selector("span.title", :content => t1.title)
+      response.body.should have_selector("span.title", :content => t2.title)
     end
     
     it "should paginate the users tuckers" do
@@ -99,12 +99,12 @@ describe UsersController do
         Factory(:tucker, :user => @user, :title => "Tucker #{t}")
       end
       get :show, :id => @user
-      response.should have_selector("div.pagination")
-      response.should have_selector("span.disabled", :content => "Previous")
-      response.should have_selector("a", :href => "/users/#{@user.id}?page=2",
-                                         :content => "2")
-      response.should have_selector("a", :href => "/users/#{@user.id}?page=2",
-                                         :content => "Next")
+      response.body.should have_selector("div.pagination")
+      response.body.should have_selector("span.disabled", :content => "Previous")
+      response.body.should have_selector("a", :href => "/users/#{@user.id}?page=2",
+                                              :content => "2")
+      response.body.should have_selector("a", :href => "/users/#{@user.id}?page=2",
+                                              :content => "Next")
     end
   end
 
@@ -119,27 +119,27 @@ describe UsersController do
     
       it "should have the right title" do
         get :new
-        response.should have_selector("title", :content => "Sign up")
+        response.body.should have_selector("title", :content => "Sign up")
       end
     
       it "should have a name field" do
         get :new
-        response.should have_selector("input[name='user[name]'][type='text']")
+        response.body.should have_selector("input[name='user[name]'][type='text']")
       end
     
       it "should have an email field" do
         get :new
-        response.should have_selector("input[name='user[email]'][type='text']")
+        response.body.should have_selector("input[name='user[email]'][type='text']")
       end
     
       it "should have a password field" do
         get :new
-        response.should have_selector("input[name='user[password]'][type='password']")
+        response.body.should have_selector("input[name='user[password]'][type='password']")
       end
     
       it "should have a password confirmation field" do
         get :new
-        response.should have_selector("input[name='user[password_confirmation]'][type='password']")
+        response.body.should have_selector("input[name='user[password_confirmation]'][type='password']")
       end
     end
     
@@ -172,7 +172,7 @@ describe UsersController do
       
         it "should have the right title" do
           post :create, :user => @attr
-          response.should have_selector("title", :content => "Sign up")
+          response.body.should have_selector("title", :content => "Sign up")
         end 
       
         it "should render the 'new' page" do
@@ -237,13 +237,13 @@ describe UsersController do
     
     it "should have the right title" do
       get :edit, :id => @user
-      response.should have_selector("title", :content => "Edit user")
+      response.body.should have_selector("title", :content => "Edit user")
     end
     
     it "should have a link to change the avatar" do
       get :edit, :id => @user
       gravatar_url = "http://gravatar.com/emails"
-      response.should have_selector("a", :href => gravatar_url,
+      response.body.should have_selector("a", :href => gravatar_url,
                                          :content => "change")
     end
   end
@@ -269,7 +269,7 @@ describe UsersController do
       
       it "should have the right title" do
         put :update, :id => @user, :user => @attr
-        response.should have_selector("title", :content => "Edit user")
+        response.body.should have_selector("title", :content => "Edit user")
       end
     end
     
@@ -411,14 +411,14 @@ describe UsersController do
       
       it "should show user following" do
         get :following, :id => @user
-        response.should have_selector("a", :href => user_path(@other_user),
-                                           :content => @other_user.name)
+        response.body.should have_selector("a", :href => user_path(@other_user),
+                                                :content => @other_user.name)
       end
       
       it "should show user followers" do
         get :followers, :id => @other_user
-        response.should have_selector("a", :href => user_path(@user),
-                                           :content => @user.name)
+        response.body.should have_selector("a", :href => user_path(@user),
+                                                :content => @user.name)
       end
     end
   end 

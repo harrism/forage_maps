@@ -116,8 +116,8 @@ describe Tucker do
       lat = 40.7782667
       lng = -73.9698797
       @tucker = @user.tuckers.create!(@attr)
-      @tucker.latitude.should be_within(0.0001).of(lat)
-      @tucker.longitude.should be_within(0.0001).of(lng)
+      @tucker.latitude.should be_within(0.01).of(lat)
+      @tucker.longitude.should be_within(0.01).of(lng)
     end
   end
 end

@@ -14,12 +14,16 @@ describe SessionsController do
     end
     
     it "should have the right title" do
-      response.should have_selector("title", :content => "Sign in")
+      response.body.should have_selector("title", :content => "Sign in")
+    end
+    
+    it "should have a forgotten password link" do
+      response.body.should have_selector("a", :content => "forgotten password?")
     end
     
     it "should have a 'remember me' check box" do
-      response.should have_selector("label", :content => "Remember me")
-      response.should have_selector("input", :id => "remember_me")
+      response.body.should have_selector("label", :content => "Remember me")
+      response.body.should have_selector("input", :id => "remember_me")
     end
   end
   
@@ -38,7 +42,7 @@ describe SessionsController do
     
       it "should have the right title" do
         post :create, :session => @attr
-        response.should have_selector(:title, :content => "Sign in")
+        response.body.should have_selector("title", :content => "Sign in")
       end
     
       it "should have a flash.now message" do

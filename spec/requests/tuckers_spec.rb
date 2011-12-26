@@ -4,10 +4,7 @@ describe "Tuckers" do
   
   before(:each) do
     user = Factory(:user)
-    visit signin_path
-    fill_in :email, :with => user.email
-    fill_in :password, :with => user.password
-    click_button
+    integration_sign_in(user)
   end
   
   describe "creation" do
@@ -17,11 +14,11 @@ describe "Tuckers" do
       it "should not make a new tucker" do
         lambda do
           visit root_path
-          response.should have_selector("input#tucker_title")
-          fill_in :tucker_title, :with => ""
-          click_button
-          response.should render_template('pages/home')
-          response.should have_selector("div#error_explanation")
+          page.should have_selector("input#tucker_title")
+          fill_in "tucker_title", :with => ""
+          click_button "Submit"
+          response.should_not have_content("Tucker created!")
+          page.should have_selector("div#error_explanation")
         end.should_not change(Tucker, :count)
       end
     end
@@ -33,10 +30,13 @@ describe "Tuckers" do
         description = "dolor sit amet"
         lambda do
           visit root_path
-          fill_in :tucker_title, :with => title
-          fill_in :tucker_description, :with => description
-          click_button
-          response.should have_selector("span.title", :content => title)
+          fill_in "tucker_title", :with => title
+          fill_in "tucker_description", :with => description
+          click_button "Submit"
+          page.should have_content("Tucker created!")
+          page.should have_content(title)
+          page.should have_content(description)
+          page.should have_selector("span.title", :content => title)
         end.should change(Tucker, :count).by(1)
       end
     end

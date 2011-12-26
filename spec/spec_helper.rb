@@ -8,6 +8,7 @@ Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
+  require 'capybara/rspec'
 
   # Requires supporting files with custom matchers and macros, etc,
   # in ./support/ and its subdirectories.
@@ -23,12 +24,27 @@ Spork.prefork do
     # config.mock_with :rr
     config.mock_with :rspec
 
-    config.fixture_path = "#{::Rails.root}/spec/fixtures"
+    #config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
     # If you're not using ActiveRecord, or you'd prefer not to run each of your
     # examples within a transaction, comment the following line or assign false
     # instead of true.
-    config.use_transactional_fixtures = true
+    config.use_transactional_fixtures = false
+   
+    config.before(:suite) do
+      DatabaseCleaner.strategy = :truncation
+    end
+
+    config.before(:each) do
+      DatabaseCleaner.start
+    end
+
+    config.after(:each) do
+      DatabaseCleaner.clean
+    end
+    
+    config.include(MailerMacros)
+    config.before(:each) { reset_email }
     
     def test_sign_in(user)
       # required to make sign-in work in rspec
@@ -38,9 +54,9 @@ Spork.prefork do
     
     def integration_sign_in(user)
       visit signin_path
-      fill_in :email,    :with => user.email
-      fill_in :password, :with => user.password
-      click_button
+      fill_in "Email",    :with => user.email
+      fill_in "Password", :with => user.password
+      click_button "Sign in"
     end
   end
 end
