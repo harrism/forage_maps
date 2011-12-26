@@ -91,15 +91,18 @@ describe "LayoutLinks" do
     it "should have a user sidebar with user info" do
       t1 = Factory(:tucker, :user => @user, :title => "Foo Bar")
       visit root_path
-      page.should have_selector("td.sidebar div.user_info")
-      page.should have_selector("a", :href => user_path(@user),
-                                     :content => @user.name)
-      page.should have_selector("a", :href => user_path(@user),
-                                     :content => "1 tucker")
+      within("td.sidebar div.user_info") do
+        page.should have_selector("a", :href => user_path(@user),
+                                       :content => @user.name)
+        page.should have_selector("a", :href => user_path(@user),
+                                       :content => "1 tucker")
+      end
       t2 = Factory(:tucker, :user => @user, :title => "Baz quux")
       visit root_path
-      page.should have_selector("a", :href => user_path(@user),
-                                     :content => "2 tuckers")
+      within("td.sidebar div.user_info") do
+        page.should have_selector("a", :href => user_path(@user),
+                                       :content => "2 tuckers")
+      end
     end
     
     it "should have delete links next to the user's posts" do
