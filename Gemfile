@@ -41,7 +41,7 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'spork', '0.9.0.rc5'
+  gem 'spork', '~> 1.0rc'
   gem 'factory_girl_rails', '1.0'
   gem 'database_cleaner'
   gem 'autotest', '4.4.6'
