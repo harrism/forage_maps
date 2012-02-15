@@ -113,9 +113,10 @@ describe Tucker do
   describe "geocoding" do
   
     it "should assign correct coordinates" do
-      lat = 40.7782667
+      lat = 40.7661817
       lng = -73.9698797
       @tucker = @user.tuckers.create!(@attr)
+      
       @tucker.latitude.should be_within(0.01).of(lat)
       @tucker.longitude.should be_within(0.01).of(lng)
     end
